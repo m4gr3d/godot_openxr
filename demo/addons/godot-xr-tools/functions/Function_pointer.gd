@@ -38,6 +38,11 @@ var last_collided_at = Vector3(0, 0, 0)
 
 var ws = 1.0
 
+var INVALID_ANCHOR_UUID = [0, 0]
+var anchor_uuid = INVALID_ANCHOR_UUID
+
+onready var spatial_anchor_node = get_node("/root/Main/AnchorContainer/Anchor")
+
 func set_enabled(p_enabled):
 	enabled = p_enabled
 	
@@ -103,10 +108,26 @@ func _button_released():
 func _on_button_pressed(p_button):
 	if p_button == active_button and enabled:
 		_button_pressed()
-
+	elif p_button == Buttons.VR_BUTTON_AX:
+		spatial_anchor_node.set_anchor(get_node("/root/Main/Screen").get_global_transform())
+	elif p_button == Buttons.VR_BUTTON_BY:
+		spatial_anchor_node.erase_anchor()
+		return
+	elif p_button == Buttons.VR_GRIP:
+		spatial_anchor_node.load_anchor(anchor_uuid)
+		return
+	
 func _on_button_release(p_button):
 	if p_button == active_button and target:
 		_button_released()
+
+# TODO: Why are the args two Strings instead of 1 Array?
+func _anchor_ready(uuid0, uuid1):
+	anchor_uuid = [uuid0, uuid1];
+
+# TODO: Why are the args two Strings instead of 1 Array?
+func _anchor_erased(uuid0, uuid1):
+	anchor_uuid = INVALID_ANCHOR_UUID;
 
 func _ready():
 	ws = ARVRServer.world_scale
@@ -124,7 +145,10 @@ func _ready():
 	set_collide_with_bodies(collide_with_bodies)
 	set_collide_with_areas(collide_with_areas)
 	set_enabled(enabled)
-
+	
+	spatial_anchor_node.connect("anchor_ready_event", self, "_anchor_ready")
+	spatial_anchor_node.connect("anchor_erased_event", self, "_anchor_erased")
+	
 func _process(delta):
 	if !is_inside_tree():
 		return
@@ -192,3 +216,4 @@ func _process(delta):
 		
 		last_target = null
 		$Target.visible = false
+		

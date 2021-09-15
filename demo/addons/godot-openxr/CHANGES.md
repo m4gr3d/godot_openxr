@@ -3,6 +3,7 @@ Changes to the Godot OpenXR asset
 
 1.2.0
 -------------------
+- Added support for Meta Spatial Anchors API
 - Added interaction profile for the HP Reverb G2 controllers.
 - Removed deprecated `com.samsung.android.vr.application.mode` meta-data tag.
 - Updated repo `README`.

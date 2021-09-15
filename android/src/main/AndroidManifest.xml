@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         package="org.godotengine.plugin.vr.openxr"
-        android:versionCode="10101"
-        android:versionName="1.1.1">
+        android:versionCode="10200"
+        android:versionName="1.2.0">
 
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30" />
 
@@ -13,12 +13,19 @@
         android:version="1"
         tools:node="replace"/>
 
+    <!-- Experimental extensions flag which enables all experimental FB OpenXR extensions (should be removed for production builds).-->
+    <uses-feature android:name="com.oculus.experimental.enabled"
+        android:required="true" />
+
     <!--
     Passthrough feature flag.
     `required` should be `true` when passthrough is required for app functionality, `false` otherwise.
     -->
     <uses-feature android:name="com.oculus.feature.PASSTHROUGH"
         android:required="false" />
+
+    <!-- Grants access to anchor APIs. -->
+    <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
 
     <application>
 

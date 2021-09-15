@@ -44,6 +44,19 @@
 #include <X11/Xlib.h>
 #endif
 
+#ifndef XR_FB_spatial_entity
+#define XR_FB_spatial_entity_EXPERIMENTAL_VERSION 1
+#include <openxr/include/fb_spatial_entity.h>
+#endif
+#ifndef XR_FB_spatial_entity_storage
+#define XR_FB_spatial_entity_storage_EXPERIMENTAL_VERSION 1
+#include <openxr/include/fb_spatial_entity_storage.h>
+#endif
+#ifndef XR_FB_spatial_entity_query
+#define XR_FB_spatial_entity_query_EXPERIMENTAL_VERSION 1
+#include <openxr/include/fb_spatial_entity_query.h>
+#endif
+
 #include "openxr/extensions/xr_composition_layer_provider.h"
 #include "openxr/extensions/xr_extension_wrapper.h"
 #include "openxr/include/openxr_inc.h"

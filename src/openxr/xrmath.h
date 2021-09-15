@@ -367,3 +367,10 @@ printXrMatrix4x4(XrMatrix4x4f matrix) {
 			matrix.m[10], matrix.m[11], matrix.m[12], matrix.m[13],
 			matrix.m[14], matrix.m[15]);
 }
+
+static inline XrPosef XrPosef_Create(const XrQuaternionf orientation, const XrVector3f position) {
+    XrPosef r;
+    r.orientation = orientation;
+    r.position = position;
+    return r;
+}
